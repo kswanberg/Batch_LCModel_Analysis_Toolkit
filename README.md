@@ -18,4 +18,4 @@ Swanberg, K.M. (2023). Batch LCModel Analysis Toolkit. v. 2.0. Source code. http
 
 ### Developer
 
-Please send comments and questions to [Kelley Swanberg](mailto: k.swanberg@columbia.edu). 
+Please send comments and questions to [Kelley Swanberg](mailto:k.swanberg@columbia.edu). 
