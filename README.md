@@ -5,6 +5,7 @@ The Batch LCModel Analysis Toolkit is a collection of open-source MATLAB (v. 201
 ### Features
 - Extract individual free induction decay (FID) as .mat files from an INSPECTOR-format basis file
 - Convert INSPECTOR-format .mat FIDs into LCModel .raw files
+- Convert .txt FIDs exported from Bruker ParaVision 360 spectral visualization and processing tool into LCModel .raw files
 - Batch-write LCModel CONTROL files from a template for a directory of .raw files
 - Convert a directory of LCModel CONTROL files into a Linux .sh script for easy batch calls to LCModel 
 - Collate a directory of LCModel .csv outputs into a single master file for convenient downstream analysis 
