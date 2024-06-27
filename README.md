@@ -1,6 +1,4 @@
 # Batch LCModel Analysis Toolkit
-
-<<<<<<< HEAD
 The Batch LCModel Analysis Toolkit is a collection of open-source MATLAB (v. 2018a-23b) and R (v. 4.0.5) functions available for facilitating batch linear combination modeling in (now also open-source!) program LCModel. 
 
 ### Features
