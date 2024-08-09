@@ -11,7 +11,7 @@ The Batch LCModel Analysis Toolkit is a collection of open-source MATLAB (v. 201
 - Convert a directory of LCModel CONTROL files into a Linux .sh script for easy batch calls to LCModel 
 - Collate a directory of LCModel .csv outputs into a single master file for convenient downstream analysis 
 - Create publication-ready linear combination model fit figures from a directory of LCModel COORD outputs
-- Calculate fit residuals and normality statistics thereof from a directory of LCModel COORD outputs 
+- Calculate spectral and fit quality metrics, including single-peak SNR, FWHM, residual normality, fit quality number, and more from a directory of LCModel COORD outputs 
 - Collate the first page of each file in a directory of LCModel result PDFs into a single master file for convenient batch persual 
 
 ### Citation 
