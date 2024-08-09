@@ -17,7 +17,7 @@ function calculate_LCModel_spectral_quality()
 % COORD files from which to calculate residuals and normality thereof
 % 
 % Outputs: 'Spectral_and_fit_quality_outputs.csv' wherein data are reported in
-% five columns: 
+% twelve columns: 
 % 
 % Column 0: Row names based on coord file name
 % Column 1: Fit residual K-S test p-value < default alpha? 1=yes; 0=no 
