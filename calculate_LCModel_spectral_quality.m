@@ -16,22 +16,33 @@ function calculate_LCModel_spectral_quality()
 % Function run prompts user to select root folder containing directory of
 % COORD files from which to calculate residuals and normality thereof
 % 
-% Outputs: 'Spectral_and_fit_quality_outputs.csv' wherein data are reported in
-% twelve columns: 
+% Outputs: 'Spectral_and_fit_quality_outputs.csv' wherein input and output data are reported in
+% nineteen columns: 
 % 
 % Column 0: Row names based on coord file name
-% Column 1: Fit residual K-S test p-value < default alpha? 1=yes; 0=no 
-% Column 2: Fit residual K-S test p-value 
-% Column 3: Fit residual K-S test statistic
-% Column 4: Fit residual K-S test critical value
-% Column 5: Fit residual kurtosis value 
-% Column 6: Fit residual standard deviation
-% Column 7: Noise (frequency domain) standard deviation
-% Column 8: Fit quality number (Near et al., 2022 doi: 10.1002/nbm.4257) 
-% Column 9: Baseline-corrected signal maximum 
-% Column 10: SNR
-% Column 11: Signal FWHM (ppm) 
-% Column 12: Signal FWHM (Hz) 
+% Column 1: ppm_end input (Lowest ppm value in 'signal' range (e.g. 2.8 for
+% tCr) for SNR/FWHM) 
+% Column 2: ppm_start input (Highest ppm value in 'signal range' (e.g. 3.15
+% for tCr) for SNR/FWHM)
+% Column 3: ppm_base_end - input (Lowest ppm value to define baseline range
+% (e.g. 0))
+% Column 4: ppm_base_start input (Lowest ppm value to define baseline range
+% (e.g. 0.5))
+% Column 5: sf input (Larmor frequency in MHz (e.g. 399.5 for 9.4 T))
+% Column 6: Fit residual K-S test p-value < default alpha? 1=yes; 0=no 
+% Column 7: Fit residual K-S test p-value 
+% Column 8: Fit residual K-S test statistic
+% Column 9: Fit residual K-S test critical value
+% Column 10: Fit residual kurtosis value 
+% Column 11: Fit residual standard deviation
+% Column 12: Noise (frequency domain) standard deviation
+% Column 13: Fit quality number (Near et al., 2022 doi: 10.1002/nbm.4257) 
+% Column 14: Baseline-corrected signal maximum 
+% Column 15: SNR
+% Column 16: FWHM range ppm end as calculated from interpolated spectrum for maximum precision  
+% Column 17: FWHM range ppm start as calculated from interpolated spectrum for maximum precision 
+% Column 18: Signal FWHM (ppm) as calculated from interpolated spectrum for maximum precision 
+% Column 19: Signal FWHM (Hz) as calculated from interpolated spectrum for maximum precision 
 % 
 % Will optionally plot residuals, baseline model for signal correction in SNR calculation, 
 % and FWHM calculation parameters and save figure as png (see plot inputs) 
@@ -68,7 +79,7 @@ function calculate_LCModel_spectral_quality()
     num_coords = length(list_of_cases);  
     
     %% Prepare table for outputs 
-    combined_array = zeros(num_coords, 12); 
+    combined_array = zeros(num_coords, 19); 
     combined_table = array2table(combined_array); 
     row_names = {num_coords};
     
@@ -182,18 +193,25 @@ function calculate_LCModel_spectral_quality()
     signal_noise_ratio = signal_max_baseline_corr / noise_std; 
 
     row_names{ii} = case_name; 
-    combined_table{ii, 1} = res_h; 
-    combined_table{ii, 2} = res_p; 
-    combined_table{ii, 3} = res_ksstat; 
-    combined_table{ii, 4} = res_cv; 
-    combined_table{ii, 5} = res_k; 
-    combined_table{ii, 6} = resid_std;  
-    combined_table{ii, 7} = noise_std;  
-    combined_table{ii, 8} = fqn;  
-    combined_table{ii, 9} = signal_max_baseline_corr; 
-    combined_table{ii, 10} = signal_noise_ratio; 
-    combined_table{ii, 11} = signal_fwhm_ppm;
-    combined_table{ii, 12} = signal_fwhm_Hz; 
+    combined_table{ii, 1} = ppm_end; 
+    combined_table{ii, 2} = ppm_start; 
+    combined_table{ii, 3} = ppm_base_end; 
+    combined_table{ii, 4} = ppm_base_start; 
+    combined_table{ii, 5} = sf; 
+    combined_table{ii, 6} = res_h; 
+    combined_table{ii, 7} = res_p; 
+    combined_table{ii, 8} = res_ksstat; 
+    combined_table{ii, 9} = res_cv; 
+    combined_table{ii, 10} = res_k; 
+    combined_table{ii, 11} = resid_std;  
+    combined_table{ii, 12} = noise_std;  
+    combined_table{ii, 13} = fqn;  
+    combined_table{ii, 14} = signal_max_baseline_corr; 
+    combined_table{ii, 15} = signal_noise_ratio; 
+    combined_table{ii, 16} = ppm_selected_interpolated(signal_half_max_ppm_bigger_index + signal_max_ppm - 1); 
+    combined_table{ii, 17} = ppm_selected_interpolated(signal_half_max_ppm_smaller_index);
+    combined_table{ii, 18} = signal_fwhm_ppm;
+    combined_table{ii, 19} = signal_fwhm_Hz; 
 
     % Plot residual and export figure as sanity check  
     if plot_residual==1
@@ -238,15 +256,17 @@ function calculate_LCModel_spectral_quality()
     
     %% Add row names to output table 
     combined_table.Properties.RowNames = row_names; 
-    combined_table.Properties.VariableNames = {'Res K-S stat < alpha?','Res K-S stat p-value', 'Res K-S stat', ...
+    combined_table.Properties.VariableNames = {'Signal end (ppm)', 'Signal start (ppm)', 'Baseline end (ppm)', 'Baseline start (ppm)', 'Larmor frequency (MHz)', ... 
+    'Res K-S stat < alpha?','Res K-S stat p-value', 'Res K-S stat', ...
     'Res K-S stat critical value', 'Res kurtosis', 'Res std', 'Noise std', 'FQN', 'Signal max', ...
-    'SNR', 'Signal FWHM (ppm)', 'Signal FWHM (Hz)'}; 
+    'SNR', 'Signal FWHM end (ppm)', 'Signal FWHM start (ppm)', 'Signal FWHM (ppm)', 'Signal FWHM (Hz)'}; 
 
     CSV_name = 'Spectral_and_fit_quality_outputs.csv'; 
     
     %% Output CSV of quality assessment results 
     writetable(combined_table, CSV_name, 'WriteRowNames', true); 
 
+    close all; 
 end 
 
 function [coord_vector] = coord_lines_to_vector(coord_lines)
