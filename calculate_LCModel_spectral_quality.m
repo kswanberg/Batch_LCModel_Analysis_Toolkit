@@ -54,9 +54,9 @@ function calculate_LCModel_spectral_quality()
 % Written and tested in MATLAB 2023b
 
     %% Input values
-    plot_residual = 1; 
-    plot_baseline = 1; 
-    plot_fwhm = 1; 
+    plot_residual = 0; 
+    plot_baseline = 0; 
+    plot_fwhm = 0; 
     ppm_end = 2.8; 
     ppm_start = 3.15;
     ppm_base_end = 0; 
@@ -168,8 +168,8 @@ function calculate_LCModel_spectral_quality()
     res_k = kurtosis(residual_coords_vector); 
     [k,res_autocorr] = ac2rc(xcorr(residual_coords_vector)); 
 
-    % Calculate fit quality number (residual / noise std) 
-    fqn = resid_std / noise_std; 
+    % Calculate fit quality number (residual / noise variance) 
+    fqn = (resid_std^2) / (noise_std^2); 
 
     % Calculate signal max and FWHM using interpolated function for high
     % precision 
@@ -252,6 +252,10 @@ function calculate_LCModel_spectral_quality()
         saveas(gcf, filename); 
     end
    
+    if mod(ii,100)==1
+       fprintf('Analysis %d of %d complete.\n', ii, num_coords)
+    end
+
     end 
     
     %% Add row names to output table 
