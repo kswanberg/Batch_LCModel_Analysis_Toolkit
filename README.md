@@ -9,6 +9,7 @@ The Batch LCModel Analysis Toolkit is a collection of open-source MATLAB (v. 201
 - Convert .txt FIDs exported from Bruker ParaVision 360 spectral visualization and processing tool into LCModel .raw files
 - Batch-write LCModel CONTROL files from a template for a directory of .raw files
 - Convert a directory of LCModel CONTROL files into a Linux .sh script for easy batch calls to LCModel 
+- Generate an LCModel makebasis.in file from a directory of LCModel RAW bases
 - Collate a directory of LCModel .csv outputs into a single master file for convenient downstream analysis 
 - Create publication-ready linear combination model fit figures from a directory of LCModel COORD outputs
 - Calculate complex frequency-domain spectral quality metrics, including single-peak raw-data and fit-based SNR, FWHM, and more from a directory of LCModel RAW files
