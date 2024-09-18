@@ -10,7 +10,7 @@ function convert_INSPECTOR_mat_to_LCModel_raw()
 % Outputs: LCModel-readable .raw files containing same time-domain free induction decay (FID)
 % data as original INSPECTOR-format .mat files 
 % 
-% Author: Kelley Swanberg (Columbia University, 2023) 
+% Author: Kelley Swanberg (Lunds universitet, 2024) 
 % 
 % Acknowledgements: create_fmt() function adapted from materials 
 % provided by MathWorks Support team available at 
@@ -41,12 +41,24 @@ raw_tramp = '1.00000E+00'
 raw_fid = data_mat.exptDat.fid; 
 length_fid_complex = data_mat.exptDat.nspecC; 
 length_fid_values = 2 * length_fid_complex; 
-num_rows_raw = length_fid_values/8; 
+num_rows_raw = floor(length_fid_values/8); 
 
-raw_fid_real_imag_sep = [real(raw_fid) -imag(raw_fid)]; % Negative imaginary component because otherwise they will end up upside-down in LCModel 
+% Separate data points that will not fit
+num_points_separate = mod(length_fid_values, 8)/2; 
+raw_fid_to_reshape = raw_fid(1:end-num_points_separate); 
+
+raw_fid_real_imag_sep = [real(raw_fid_to_reshape) -imag(raw_fid_to_reshape)]; % Negative imaginary component because otherwise they will end up upside-down in LCModel 
 raw_fid_real_imag_sep_transpose = raw_fid_real_imag_sep'; 
 raw_fid_real_imag_sep_vector = raw_fid_real_imag_sep_transpose(:); 
-raw_fid_matrix = reshape(raw_fid_real_imag_sep_vector, 8, num_rows_raw); 
+raw_fid_matrix = reshape(raw_fid_real_imag_sep_vector, 8, num_rows_raw);
+
+if(num_points_separate > 0)
+    sep_raw_fid_to_reshape = raw_fid(end-num_points_separate+1:end);
+    sep_raw_fid_real_imag_sep = [real(sep_raw_fid_to_reshape) -imag(sep_raw_fid_to_reshape)]; % Negative imaginary component because otherwise they will end up upside-down in LCModel 
+    sep_raw_fid_real_imag_sep_transpose = sep_raw_fid_real_imag_sep'; 
+    sep_raw_fid_real_imag_sep_vector = sep_raw_fid_real_imag_sep_transpose(:); 
+end
+
 
 %Create raw file 
 raw_filename = strrep(mat_filename, '.mat', '.raw'); 
@@ -69,6 +81,10 @@ delimiter = ' ';
 line_terminator = '\n ';
 format = [create_fmt(precision, delimiter, size(raw_fid_matrix)') line_terminator];
 fprintf(fileID, format, raw_fid_matrix);
+
+if(num_points_separate > 0)
+    fprintf(fileID, format, sep_raw_fid_real_imag_sep_vector);
+end 
 
 fclose(fileID);
 close all; 
