@@ -2,6 +2,7 @@
 The Batch LCModel Analysis Toolkit is a collection of open-source MATLAB (v. 2018a-23b) and R (v. 4.0.5) functions available for facilitating batch linear combination modeling in (now also open-source!) program LCModel. 
 
 ### Features
+- Code folders of generalized subdirectories to enable blinded data analysis
 - Extract individual free induction decay (FID) as .mat files from an INSPECTOR-format basis file
 - Convert INSPECTOR-format .mat FIDs into LCModel .raw files
 - Add constant Lorentzian line broadening to a directory of LCModel .raw or INSPECTOR .mat files
