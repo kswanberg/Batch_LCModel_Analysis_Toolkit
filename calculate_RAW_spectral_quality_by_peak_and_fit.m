@@ -289,7 +289,8 @@ function calculate_RAW_spectral_quality_by_peak_and_fit()
         fitted_peak_spec_real = real(fftshift(fft(fitted_peak))); 
         
         % Signal and FWHM outputs by fitting 
-        signal_fitted = sqrt(fid_zf)*vestimated(1); 
+        int_fitted = sqrt(fid_zf)*vestimated(1);
+        signal_fitted = max(fitted_peak_spec_real) - min(fitted_peak_spec_real);
         SNR_fitted = signal_fitted/noise_std; 
         fwhm_fitted_Hz = vestimated(3) - fid_lb;
 
