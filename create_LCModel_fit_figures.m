@@ -130,32 +130,38 @@ function create_LCModel_fit_figures()
             metab_coords_vector = zeros(1, num_points); 
             metab_coords_line_first = []; 
         
-            string_to_find = sprintf('%s   Conc.', metab_name_list{kk});
-            metab_coords_line_first = find(contains(f_lines,string_to_find))+1;
-        
+            string_to_find = sprintf(' %s   Conc.', metab_name_list{kk});
+            metab_coords_line_first = find(startsWith(f_lines,string_to_find))+1;
+        fit_coords_lines
             % There is almost certainly a better way using regular expressions
+            % Three spaces
+            if isempty(metab_coords_line_first)
+                string_to_find = sprintf(' %s   Conc.', metab_name_list{kk});
+                metab_coords_line_first = find(startsWith(f_lines,string_to_find))+1;
+            end
+
             % Four spaces
             if isempty(metab_coords_line_first)
-                string_to_find = sprintf('%s    Conc.', metab_name_list{kk});
-                metab_coords_line_first = find(contains(f_lines,string_to_find))+1;
+                string_to_find = sprintf(' %s    Conc.', metab_name_list{kk});
+                metab_coords_line_first = find(startsWith(f_lines,string_to_find))+1;
             end
         
             % Five spaces
             if isempty(metab_coords_line_first)
-                string_to_find = sprintf('%s     Conc.', metab_name_list{kk});
-                metab_coords_line_first = find(contains(f_lines,string_to_find))+1;
+                string_to_find = sprintf(' %s     Conc.', metab_name_list{kk});
+                metab_coords_line_first = find(startsWith(f_lines,string_to_find))+1;
             end
         
             % Six spaces
             if isempty(metab_coords_line_first)
-                string_to_find = sprintf('%s      Conc.', metab_name_list{kk});
-                metab_coords_line_first = find(contains(f_lines,string_to_find))+1;
+                string_to_find = sprintf(' %s      Conc.', metab_name_list{kk});
+                metab_coords_line_first = find(startsWith(f_lines,string_to_find))+1;
             end
         
             % Seven spaces
             if isempty(metab_coords_line_first)
-                string_to_find = sprintf('%s       Conc.', metab_name_list{kk});
-                metab_coords_line_first = find(contains(f_lines,string_to_find))+1;
+                string_to_find = sprintf(' %s       Conc.', metab_name_list{kk});
+                metab_coords_line_first = find(startsWith(f_lines,string_to_find))+1;
             end
         
             if ~isempty(metab_coords_line_first)
