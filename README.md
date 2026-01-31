@@ -3,11 +3,12 @@ The Batch LCModel Analysis Toolkit is a collection of open-source MATLAB (v. 201
 
 ### Features
 - Code folders of generalized subdirectories to enable blinded data analysis
+- Convert Bruker ParaVision 360 fid_proc.64 or fid_refscan.64 files into INSPECTOR .nat files
+- Convert .txt FIDs exported from Bruker ParaVision 360 spectral visualization and processing tool into LCModel .raw files
 - Extract individual free induction decay (FID) as .mat files from an INSPECTOR-format basis file
 - Convert INSPECTOR-format .mat FIDs into LCModel .raw files
 - Add constant Lorentzian line broadening to a directory of LCModel .raw or INSPECTOR .mat files
 - Read LCModel .raw files into MATLAB for further processing 
-- Convert .txt FIDs exported from Bruker ParaVision 360 spectral visualization and processing tool into LCModel .raw files
 - Batch-write LCModel CONTROL files from a template for a directory of .raw files
 - Convert a directory of LCModel CONTROL files into a Linux .sh script for easy batch calls to LCModel 
 - Generate an LCModel makebasis.in file from a directory of LCModel RAW bases
@@ -16,6 +17,7 @@ The Batch LCModel Analysis Toolkit is a collection of open-source MATLAB (v. 201
 - Calculate complex frequency-domain spectral quality metrics, including single-peak raw-data and fit-based SNR, FWHM, and more from a directory of LCModel RAW files
 - Calculate real frequency-domain spectral and fit quality metrics, including single-peak SNR, FWHM, residual normality, fit quality number, and more from a directory of LCModel COORD outputs 
 - Collate the first page of each file in a directory of LCModel result PDFs into a single master file for convenient batch persual 
+- Also access a simple guide to generating metabolite basis sets specific to your Bruker pulse sequences in density-matrix simulator MARSS 
 
 ### Citation 
 

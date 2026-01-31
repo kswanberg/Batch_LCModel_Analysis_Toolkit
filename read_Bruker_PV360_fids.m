@@ -3,7 +3,7 @@ function calculate_RAW_spectral_quality_by_peak_and_fit()
 % Converts Bruker processed FID and refscan FID files to MATLAB structs in
 % a format readable by INSPECTOR 
 % 
-% Inputs: Bruker fid_proc,64 or fid_refscan.64 files from Paravision 360
+% Inputs: Bruker fid_proc.64 or fid_refscan.64 files from Paravision 360
 % fid_to_open - Name of FID file to read and convert to MATLAB struct
 % larmor_freq - Larmor frequency of scanner in MHz; find in method file $PVM_FrqWork
 % rx_bw - acquisition receive bandwidth in Hz; find in method file $PVM_SpecSWH
@@ -86,5 +86,5 @@ function calculate_RAW_spectral_quality_by_peak_and_fit()
     
     % Save end result 
     save('fid.mat', 'exptDat'); 
-    
+
 end
