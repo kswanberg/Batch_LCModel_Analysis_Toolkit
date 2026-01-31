@@ -1,5 +1,5 @@
 %% Convert Bruker PV 360 FIDs to structs readable by MATLAB and INSPECTOR
-function calculate_RAW_spectral_quality_by_peak_and_fit() 
+function read_Bruker_PV360_fids() 
 % Converts Bruker processed FID and refscan FID files to MATLAB structs in
 % a format readable by INSPECTOR 
 % 
