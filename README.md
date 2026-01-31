@@ -3,7 +3,7 @@ The Batch LCModel Analysis Toolkit is a collection of open-source MATLAB (v. 201
 
 ### Features
 - Code folders of generalized subdirectories to enable blinded data analysis
-- Convert Bruker ParaVision 360 fid_proc.64 or fid_refscan.64 files into INSPECTOR .nat files
+- Convert Bruker ParaVision 360 fid_proc.64 or fid_refscan.64 files into INSPECTOR .mat files
 - Convert .txt FIDs exported from Bruker ParaVision 360 spectral visualization and processing tool into LCModel .raw files
 - Extract individual free induction decay (FID) as .mat files from an INSPECTOR-format basis file
 - Convert INSPECTOR-format .mat FIDs into LCModel .raw files
